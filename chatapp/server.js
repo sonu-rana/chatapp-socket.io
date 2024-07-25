@@ -4,11 +4,19 @@ const app = express();
 const socketServer = http.Server(app);
 const socket = require('socket.io');
 const io = socket(socketServer);
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8000;
+const dotenv = require("dotenv")
+dotenv.config()
+require('./src/utils/bootstrap')
+const routes = require('./src/routes/index')
+// console.log(routes)
+
 
 var messages = [];
 var connectedusers = [];
+app.use(express.json());
 app.use('/', express.static('public'));
+app.use('/', routes)
 
 io.on('connection', function(sk){
     console.log("connection_established");
@@ -54,7 +62,9 @@ io.on('connection', function(sk){
   
   
 
-
+// init = async ()=>{
+//     await boot
+// }
 
 socketServer.listen(PORT, function(){
     console.log("Server is listening on port "+ PORT);
