@@ -12,9 +12,9 @@ const empSchema = new mongoose.Schema({
   empPassword: {
     type: String,
     required: true,
-  }
+  },
 });
 
 const Emp = mongoose.model("Emp", empSchema);
 
-module.exports = Emp
+module.exports = Emp;
